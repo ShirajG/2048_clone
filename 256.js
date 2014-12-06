@@ -114,10 +114,10 @@ Game.prototype = {
     },
     slide: function(direction){
         switch(direction) {
-            case 'up':
+            case 'down':
                 this.moveCols(-1);
                 break;
-            case 'down':
+            case 'up':
                 this.moveCols(1);
                 break;
             case 'left':
@@ -128,9 +128,21 @@ Game.prototype = {
                 break; 
         }
         //Check if 256 is on the board, set finished to true if so.
-        this.checkWon();
+        if(this.checkWon()){
+            this.show();
+            console.log("YOU WON!!!")
+            return
+        }
         //Check if there are any free spaces, set finished to true if so.
-        this.checkLocked();
+        if (!this.checkLocked()) {
+            this.addTile();
+            this.show();
+        }
+        else{
+            this.show();
+            console.log("NO MORE MOVES!!!")
+            return
+        }
     },
     moveCols: function(offset){
         var cols = this.getCols();
@@ -155,14 +167,7 @@ Game.prototype = {
                 }
             };   
         }
-
         this.setCols(cols);
-
-        // Remove all zeroes from the row/col
-        // Merge any 2 digits which are neighbors and duplicate
-        // Pad row/col with new 'tiles' until length is 4
-        // One of the new tiles should have a number on it.
-        // Write the new row/col back to model
     },
     moveRows: function(offset){
         var rows = this.getRows();
@@ -172,7 +177,7 @@ Game.prototype = {
         }
         rows = this.mergeDoubles(rows);
 
-        if (offset > 1){
+        if (offset >= 1){
             for (var i = 0; i < rows.length; i++) {
                 while(rows[i].length < this.width){
                     rows[i].unshift(0);
@@ -204,8 +209,16 @@ Game.prototype = {
         };
         return nestedArr;        
     },
-    addTiles: function(){
-        //Add a random new tile to the board.
+    getRand: function(range){
+        return Math.floor(Math.random() * range)
+    },
+    addTile: function(){
+        possibleNewTiles = [2,4];
+        rand = this.getRand(this.board.length);
+        while(this.board[rand] !== 0){
+            rand = this.getRand(this.board.length);
+        }
+        this.board[rand] = possibleNewTiles[this.getRand(possibleNewTiles.length)];
     },
     checkWon: function(){
         for(var i = 0; i < this.board.length; i++){
