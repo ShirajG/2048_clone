@@ -1,3 +1,20 @@
+function Assert(){};
+Assert.prototype = {
+    equal: function(expected, actual){
+        if(!(expected == actual)){
+          throw "ERROR:" + expected + " did not equal: " + actual;
+        }
+    },
+    deepEqual: function(obj1, obj2){
+        for(var x in obj1){
+            if(obj1[x]!==obj2[x]){
+                throw "ERROR: " + obj1 + " is not equal to " + obj2;
+            }
+        }
+    }
+}
+asserts= new Assert;
+
 function Game (str){
     this.board = str.split("").map(function(el){
         return parseInt(el);
@@ -48,5 +65,5 @@ Game.prototype = {
 
 gameInstance = new Game("0020020000000000");
 gameInstance.show();
-
+asserts.deepEqual( [23,34,443,5], gameInstance.removeEmpty([23,0,34,443,5,0]))
 
