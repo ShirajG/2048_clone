@@ -1,3 +1,8 @@
+Array.prototype.shirajFlatten = function(){
+    return this.reduce(function(prev,curr){
+        return prev.concat(curr);
+    })
+}
 String.prototype.shirajReplace = function (index, newValue) {
 
     while(this[index] === newValue){
@@ -34,8 +39,6 @@ function Game (width, height){
     this.height = height;
     this.area = width * height;
     this.board = this.newBoard();
-    this.rows = this.getRows();
-    this.columns = this.getCols();
     this.finished = false
     this.start()
 }
@@ -130,7 +133,28 @@ Game.prototype = {
         this.checkLocked();
     },
     moveCols: function(offset){
-        
+        cols = this.getCols();
+        for(var i = 0; i<cols.length; i++){
+            cols[i] = this.removeZeroes(cols[i]);
+        }
+        if (offset < 1){
+            for (var i = 0; i < cols.length; i++) {
+                while(cols[i].length < this.height){
+                    cols[i].unshift(0);
+                }
+            };
+        }
+        else{
+            for (var i = 0; i < cols.length; i++) {
+                while(cols[i].length < this.height){
+                    cols[i].push(0);
+                }
+            };   
+        }
+
+        this.setCols(cols);
+
+
         // Remove all zeroes from the row/col
         // Merge any 2 digits which are neighbors and duplicate
         // Pad row/col with new 'tiles' until length is 4
@@ -138,8 +162,8 @@ Game.prototype = {
         // Write the new row/col back to model
     },
     moveRows: function(offset){
-        
-    }
+
+    },
     mergeDoubles: function(){
         // Merge any 2 digits which are neighbors and duplicate
     },
@@ -190,3 +214,12 @@ assert.equal(true,gameInstance.checkLocked())
 
 gameInstance.setRows([[2,0,2,2],[2,2,2,2],[2,2,2,2],[2,2,2,2]])
 assert.equal(false,gameInstance.checkLocked())
+
+gameInstance.setCols([[2,0,0,2],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
+gameInstance.moveCols(1);
+assert.deepEqual(
+    [2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    gameInstance.getCols().shirajFlatten()
+)
+
+
