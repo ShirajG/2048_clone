@@ -124,8 +124,10 @@ Game.prototype = {
                 this.moveCells(1,0);
                 break; 
         }
-        this.checkWon();//Check if 256 is on the board, set finished to true if so.
-        this.checkLocked();//Check if there are any free spaces, set finished to true if so.
+        //Check if 256 is on the board, set finished to true if so.
+        this.checkWon();
+        //Check if there are any free spaces, set finished to true if so.
+        this.checkLocked();
     },
     moveCells: function(x,y){
         // Remove all zeroes from the row/col
@@ -156,7 +158,9 @@ Game.prototype = {
         })
         if (emptyTiles.length === 0){
             this.finished = true;
+            return true;
         }
+        return false;
     },
     removeZeroes: function(arr){
         return arr.filter(function(el){ return el !== 0})
@@ -168,7 +172,7 @@ Game.prototype = {
         // }
     }
 }
-assert=new Assert;
+assert = new Assert;
 gameInstance = new Game(4,4);
 assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
 
@@ -178,4 +182,8 @@ assert.deepEqual([2,3,4,5,3,0,0,2,3,6,4,7,5,7,8,3], gameInstance.board)
 gameInstance.setCols([[2,3,4,5],[3,0,0,2],[3,6,4,7],[5,7,8,3]])
 assert.deepEqual([2,3,3,5,3,0,6,7,4,0,4,8,5,2,7,3], gameInstance.board)
 
-gameInstance.setRows([0,0,0,2],[0,0,0,2],[0,0,0,0],[0,0,0,0])
+gameInstance.setRows([[2,2,2,2],[2,2,2,2],[2,2,2,2],[2,2,2,2]])
+assert.equal(true,gameInstance.checkLocked())
+
+gameInstance.setRows([[2,0,2,2],[2,2,2,2],[2,2,2,2],[2,2,2,2]])
+assert.equal(false,gameInstance.checkLocked())
