@@ -1,29 +1,32 @@
-document.addEventListener('DOMContentLoaded', function(){
-  var size = prompt("How many columns do you want?")
-  var game = new Game(parseInt(size))
+function Controller(model){
+    this.model = model;
 
-  window.addEventListener("keydown",function(keypress){
-    console.log(keypress.keyCode)
-    switch(keypress.keyCode) {
+    window.addEventListener("keydown",function(keypress){
+        switch(keypress.keyCode) {
             case 37:
                 // left key pressed
-                game.slide('left')
+                this.model.slide('left')
                 break;
             case 38:
                 // up key pressed
-                game.slide('up')
+                this.model.slide('up')
                 break;
             case 39:
                 // right key pressed
-                game.slide('right')
+                this.model.slide('right')
                 break;
             case 40:
                 // down key pressed
-                game.slide('down')
+                this.model.slide('down')
                 break;  
         }
+    }.bind(this));
 
-    
-  })
+    Object.observe(this.model, this.updateView);
+}
 
-});
+Controller.prototype = {
+    updateView: function(){
+        console.log("Updating the view automatically...")
+    }
+}
