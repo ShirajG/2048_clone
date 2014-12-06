@@ -101,21 +101,35 @@ Game.prototype = {
     },
     slide: function(direction){
         switch(direction) {
-            case 'u':
+            case 'up':
                 this.moveCells(0,-1);
                 break;
-            case 'd':
+            case 'down':
                 this.moveCells(0,1);
                 break;
-            case 'l':
+            case 'left':
                 this.moveCells(-1,0);
                 break;
-            case 'r':
+            case 'right':
                 this.moveCells(1,0);
                 break; 
         }
         this.checkWon();//Check if 256 is on the board, set finished to true if so.
         this.checkLocked();//Check if there are any free spaces, set finished to true if so.
+    },
+    moveCells: function(x,y){
+        // Remove all zeroes from the row/col
+        // Merge any 2 digits which are neighbors and duplicate
+        // Pad row/col with new 'tiles' until length is 4
+        // One of the new tiles should have a number on it.
+        // Write the new row/col back to model
+        console.log("Called the moveCells function");
+    },
+    mergeDoubles: function(){
+        // Merge any 2 digits which are neighbors and duplicate
+    },
+    addTiles: function(){
+        // Merge any 2 digits which are neighbors and duplicate
     },
     checkWon: function(){
         for(var i = 0; i < this.board.length; i++){
@@ -134,13 +148,6 @@ Game.prototype = {
             this.finished = true;
         }
     },
-    moveCells: function(x,y){
-        // Remove all zeroes from the row/col
-        // Merge any 2 digits which are neighbors and duplicate
-        // Pad row/col with new 'tiles' until length is 4
-        // Write the new row/col back to model
-        console.log("Called the moveCells function");
-    },
     removeZeroes: function(arr){
         return arr.filter(function(el){ return el !== 0})
     },
@@ -151,10 +158,9 @@ Game.prototype = {
         // }
     }
 }
-
 assert=new Assert;
-gameInstance = new Game(10,10);
-// assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
-// gameInstance.show();
-// console.log(gameInstance.getRows())
-// console.log(gameInstance.getCols())
+gameInstance = new Game(4,4);
+assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
+gameInstance.show();
+console.log("The Rows are:\n" + gameInstance.getRows())
+console.log("The cols are:\n" +gameInstance.getCols())
