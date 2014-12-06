@@ -3,7 +3,7 @@ String.prototype.shirajReplace = function (index, newValue) {
     while(this[index] === newValue){
         index = Math.floor(Math.random() * this.length)
     }
-    return this.slice(0,index) + newValue + this.slice(index)
+    return this.slice(0,index) + newValue + this.slice(index + 1)
 }
 
 
@@ -48,14 +48,24 @@ Game.prototype = {
             times++;
         }
 
-        return str;
+        return str.split("").map(function(el){
+            return parseInt(el);
+        });
     },
     show: function(){
         console.log(this.board); 
     },
     getRows: function(){
-        ret = [];
-        rowLength = this.board.length / this.x;
+        rows = [];
+        for(var i = 0; i< this.board.length;){
+            var row = [];
+            while(row.length < this.width ){
+                row.push(this.board[i]);
+                i++;
+            }
+            rows.push(row);
+        }
+        return rows;       
     },
     getCols: function(){
         return null;
@@ -88,6 +98,7 @@ Game.prototype = {
     },
 }
 
-gameInstance = new Game(4,4);
+gameInstance = new Game(3,3);
 assert.deepEqual( [23,34,443,5], gameInstance.removeEmpty([23,0,34,443,5,0]))
 gameInstance.show();
+console.log(gameInstance.getRows())
