@@ -34,10 +34,10 @@ Assert.prototype = {
         }
     }
 }
-function Game (width, height){
+function Game (width){
     this.width = width;
-    this.height = height;
-    this.area = width * height;
+    this.height = width;
+    this.area = width * width;
     this.board = this.newBoard();
     this.finished = false
 }

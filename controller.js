@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
-  var game = new Game(5,5);
+  var size = prompt("How many columns do you want?")
+  var game = new Game(parseInt(size))
 
   window.addEventListener("keydown",function(keypress){
     console.log(keypress.keyCode)
