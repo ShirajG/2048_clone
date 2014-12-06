@@ -5,8 +5,6 @@ String.prototype.shirajReplace = function (index, newValue) {
     }
     return this.slice(0,index) + newValue + this.slice(index + 1)
 }
-
-
 function Assert(){};
 Assert.prototype = {
     //Checks if simple values are equal
@@ -24,8 +22,6 @@ Assert.prototype = {
         }
     }
 }
-assert= new Assert;
-
 function Game (width, height){
     this.width = width;
     this.height = height;
@@ -34,7 +30,6 @@ function Game (width, height){
     this.rows = this.getRows();
     this.columns = this.getCols();
 }
-
 Game.prototype = {
     newBoard: function(){
         str = "";
@@ -53,7 +48,15 @@ Game.prototype = {
         });
     },
     show: function(){
-        console.log(this.board); 
+        str = ""
+        for(var i = 0; i < this.board.length;){
+            str += this.board[i];
+            i++;
+            if ( i % this.width === 0){
+                str += "\n";
+            }
+        }
+        console.log(str)
     },
     getRows: function(){
         rows = [];
@@ -109,8 +112,10 @@ Game.prototype = {
     },
 }
 
-gameInstance = new Game(3,3);
+
+assert=new Assert;
+gameInstance = new Game(10,10);
 assert.deepEqual( [23,34,443,5], gameInstance.removeEmpty([23,0,34,443,5,0]))
 gameInstance.show();
-console.log(gameInstance.getRows())
-console.log(gameInstance.getCols())
+// console.log(gameInstance.getRows())
+// console.log(gameInstance.getCols())
