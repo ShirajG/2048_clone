@@ -133,11 +133,13 @@ Game.prototype = {
         this.checkLocked();
     },
     moveCols: function(offset){
-        cols = this.getCols();
+        var cols = this.getCols();
         
         for(var i = 0; i<cols.length; i++){
             cols[i] = this.removeZeroes(cols[i]);
         }
+
+        cols = this.mergeDoubles(cols);
 
         if (offset < 1){
             for (var i = 0; i < cols.length; i++) {
@@ -156,7 +158,6 @@ Game.prototype = {
 
         this.setCols(cols);
 
-
         // Remove all zeroes from the row/col
         // Merge any 2 digits which are neighbors and duplicate
         // Pad row/col with new 'tiles' until length is 4
@@ -164,11 +165,12 @@ Game.prototype = {
         // Write the new row/col back to model
     },
     moveRows: function(offset){
-        rows = this.getRows();
+        var rows = this.getRows();
         
         for(var i = 0; i<rows.length; i++){
             rows[i] = this.removeZeroes(rows[i]);
         }
+        rows = this.mergeDoubles(rows);
 
         if (offset > 1){
             for (var i = 0; i < rows.length; i++) {
@@ -187,11 +189,23 @@ Game.prototype = {
 
         this.setRows(rows);
     },
-    mergeDoubles: function(){
-        // Merge any 2 digits which are neighbors and duplicate
+    mergeDoubles: function(nestedArr){
+
+        for (var i = 0; i < nestedArr.length; i++) {
+            if (nestedArr[i].length <= 1){
+                continue;
+            }
+            for (var j = 0; j < nestedArr[i].length - 1; j++) {
+                if (nestedArr[i][j] === nestedArr[i][j+1]){
+                    nestedArr[i][j+1] *= 2;
+                    nestedArr[i].splice(j,1);
+                }
+            };
+        };
+        return nestedArr;        
     },
     addTiles: function(){
-        // Merge any 2 digits which are neighbors and duplicate
+        //Add a random new tile to the board.
     },
     checkWon: function(){
         for(var i = 0; i < this.board.length; i++){
@@ -241,18 +255,32 @@ assert.equal(false,gameInstance.checkLocked())
 gameInstance.setCols([[2,0,0,2],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
 gameInstance.moveCols(1);
 assert.deepEqual(
-    [2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     gameInstance.getCols().shirajFlatten()
 )
+
+gameInstance.setCols([[2,0,0,0],[0,0,0,2],[0,2,0,0],[0,0,0,0]])
+gameInstance.moveCols(1);
+assert.deepEqual(
+    [2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0],
+    gameInstance.getCols().shirajFlatten()
+)
+
 
 
 gameInstance.setRows([[2,0,0,2],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
 gameInstance.moveRows(-1);
 assert.deepEqual(
-    [2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     gameInstance.getRows().shirajFlatten()
 )
 
 
+gameInstance.setRows([[2,0,0,0],[0,2,0,0],[2,0,2,0],[0,2,0,0]])
+gameInstance.moveRows(-1);
+assert.deepEqual(
+    [2,0,0,0,2,0,0,0,4,0,0,0,2,0,0,0],
+    gameInstance.getRows().shirajFlatten()
+)
 
 
