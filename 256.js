@@ -112,16 +112,16 @@ Game.prototype = {
     slide: function(direction){
         switch(direction) {
             case 'up':
-                this.moveCells(0,-1);
+                this.moveCols(-1);
                 break;
             case 'down':
-                this.moveCells(0,1);
+                this.moveCols(1);
                 break;
             case 'left':
-                this.moveCells(-1,0);
+                this.moveRows(-1);
                 break;
             case 'right':
-                this.moveCells(1,0);
+                this.moveRows(1);
                 break; 
         }
         //Check if 256 is on the board, set finished to true if so.
@@ -129,14 +129,17 @@ Game.prototype = {
         //Check if there are any free spaces, set finished to true if so.
         this.checkLocked();
     },
-    moveCells: function(x,y){
+    moveCols: function(offset){
+        
         // Remove all zeroes from the row/col
         // Merge any 2 digits which are neighbors and duplicate
         // Pad row/col with new 'tiles' until length is 4
         // One of the new tiles should have a number on it.
         // Write the new row/col back to model
-        console.log("Called the moveCells function");
     },
+    moveRows: function(offset){
+        
+    }
     mergeDoubles: function(){
         // Merge any 2 digits which are neighbors and duplicate
     },
