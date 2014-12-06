@@ -68,7 +68,18 @@ Game.prototype = {
         return rows;       
     },
     getCols: function(){
-        return null;
+        var cols = [];
+        for(var i = 0; i < this.height;i++){
+            var col = [];
+            var j = i;
+
+            while(col.length < this.height ){
+                col.push(this.board[j]);
+                j += this.height;
+            }
+            cols.push(col);
+        }
+        return cols;
     },
     slide: function(direction){
         switch(direction) {
@@ -102,3 +113,4 @@ gameInstance = new Game(3,3);
 assert.deepEqual( [23,34,443,5], gameInstance.removeEmpty([23,0,34,443,5,0]))
 gameInstance.show();
 console.log(gameInstance.getRows())
+console.log(gameInstance.getCols())
