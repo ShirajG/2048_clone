@@ -134,9 +134,11 @@ Game.prototype = {
     },
     moveCols: function(offset){
         cols = this.getCols();
+        
         for(var i = 0; i<cols.length; i++){
             cols[i] = this.removeZeroes(cols[i]);
         }
+
         if (offset < 1){
             for (var i = 0; i < cols.length; i++) {
                 while(cols[i].length < this.height){
@@ -162,7 +164,28 @@ Game.prototype = {
         // Write the new row/col back to model
     },
     moveRows: function(offset){
+        rows = this.getRows();
+        
+        for(var i = 0; i<rows.length; i++){
+            rows[i] = this.removeZeroes(rows[i]);
+        }
 
+        if (offset > 1){
+            for (var i = 0; i < rows.length; i++) {
+                while(rows[i].length < this.width){
+                    rows[i].unshift(0);
+                }
+            };
+        }
+        else{
+            for (var i = 0; i < rows.length; i++) {
+                while(rows[i].length < this.width){
+                    rows[i].push(0);
+                }
+            };   
+        }
+
+        this.setRows(rows);
     },
     mergeDoubles: function(){
         // Merge any 2 digits which are neighbors and duplicate
@@ -221,5 +244,15 @@ assert.deepEqual(
     [2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     gameInstance.getCols().shirajFlatten()
 )
+
+
+gameInstance.setRows([[2,0,0,2],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
+gameInstance.moveRows(-1);
+assert.deepEqual(
+    [2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    gameInstance.getRows().shirajFlatten()
+)
+
+
 
 
