@@ -100,8 +100,14 @@ Game.prototype = {
         }
         return cols;
     },
-    setCols: function(){
-        //Mutates the values in the columns
+    setCols: function(cols){
+        var ret = []
+        for(var i = 0; i<cols.length;i++){
+            for(var j = 0; j<cols[i].length;j++){
+                ret.push(cols[j][i]);
+            }
+        }
+        this.board = ret;
     },
     slide: function(direction){
         switch(direction) {
@@ -165,8 +171,11 @@ Game.prototype = {
 assert=new Assert;
 gameInstance = new Game(4,4);
 assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
-gameInstance.show();
-console.log("The Rows are:\n" + gameInstance.getRows())
-console.log("The cols are:\n" +gameInstance.getCols())
+
 gameInstance.setRows([[2,3,4,5],[3,0,0,2],[3,6,4,7],[5,7,8,3]])
 assert.deepEqual([2,3,4,5,3,0,0,2,3,6,4,7,5,7,8,3], gameInstance.board)
+
+gameInstance.setCols([[2,3,4,5],[3,0,0,2],[3,6,4,7],[5,7,8,3]])
+assert.deepEqual([2,3,3,5,3,0,6,7,4,0,4,8,5,2,7,3], gameInstance.board)
+
+gameInstance.setRows([0,0,0,2],[0,0,0,2],[0,0,0,0],[0,0,0,0])
