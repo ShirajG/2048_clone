@@ -135,6 +135,7 @@ Game.prototype = {
         //Check if there are any free spaces, set finished to true if so.
         if (!this.checkLocked()) {
             this.addTile();
+            this.show();
         }
         else{
             this.show();
