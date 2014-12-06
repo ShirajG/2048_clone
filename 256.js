@@ -79,8 +79,12 @@ Game.prototype = {
         }
         return rows;       
     },
-    setRows: function(){
-        // Mutates the values in the rows.
+    setRows: function(rows){
+        ret = [];
+        for(var i = 0; i<rows.length; i++){
+            ret = ret.concat(rows[i]);
+        }
+        this.board = ret;
     },
     getCols: function(){
         var cols = [];
@@ -164,3 +168,5 @@ assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
 gameInstance.show();
 console.log("The Rows are:\n" + gameInstance.getRows())
 console.log("The cols are:\n" +gameInstance.getCols())
+gameInstance.setRows([[2,3,4,5],[3,0,0,2],[3,6,4,7],[5,7,8,3]])
+assert.deepEqual([2,3,4,5,3,0,0,2,3,6,4,7,5,7,8,3], gameInstance.board)
