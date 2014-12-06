@@ -40,7 +40,6 @@ function Game (width, height){
     this.area = width * height;
     this.board = this.newBoard();
     this.finished = false
-    this.start()
 }
 Game.prototype = {
     newBoard: function(){
@@ -136,7 +135,6 @@ Game.prototype = {
         //Check if there are any free spaces, set finished to true if so.
         if (!this.checkLocked()) {
             this.addTile();
-            this.show();
         }
         else{
             this.show();
@@ -223,7 +221,7 @@ Game.prototype = {
     checkWon: function(){
         for(var i = 0; i < this.board.length; i++){
             if(this.board[i] === 256){
-                this.finished === true;
+                this.finished = true;
                 return true;
             }
         }
@@ -244,11 +242,14 @@ Game.prototype = {
     },
     start: function(){
         //runs the game until a 256 tile appears, or you have no free spaces.
-        // while(!this.finished){
-            console.log("started the game")
-        // }
+        while(!this.finished){
+            this.show();
+            var choice = prompt("choose: up down left right")
+            this.slide(choice);
+        }
     }
 }
+/*
 assert = new Assert;
 gameInstance = new Game(4,4);
 assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
@@ -295,5 +296,7 @@ assert.deepEqual(
     [2,0,0,0,2,0,0,0,4,0,0,0,2,0,0,0],
     gameInstance.getRows().shirajFlatten()
 )
+*/
+
 
 
