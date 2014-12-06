@@ -1,3 +1,12 @@
+String.prototype.shirajReplace = function (index, newValue) {
+
+    while(this[index] === newValue){
+        index = Math.floor(Math.random() * this.length)
+    }
+    return this.slice(0,index) + newValue + this.slice(index)
+}
+
+
 function Assert(){};
 Assert.prototype = {
     //Checks if simple values are equal
@@ -17,20 +26,36 @@ Assert.prototype = {
 }
 assert= new Assert;
 
-function Game (str){
-    this.board = str.split("").map(function(el){
-        return parseInt(el);
-    });
+function Game (width, height){
+    this.width = width;
+    this.height = height;
+    this.area = width * height;
+    this.board = this.newBoard();
     this.rows = this.getRows();
     this.columns = this.getCols();
 }
 
 Game.prototype = {
+    newBoard: function(){
+        str = "";
+        while(str.length < this.area){
+            str += "0";
+        }
+
+        var times = 0
+        while(times < 2){
+            str = str.shirajReplace(Math.floor(Math.random() * str.length) ,"2");
+            times++;
+        }
+
+        return str;
+    },
     show: function(){
         console.log(this.board); 
     },
     getRows: function(){
-        return null;
+        ret = [];
+        rowLength = this.board.length / this.x;
     },
     getCols: function(){
         return null;
@@ -63,6 +88,6 @@ Game.prototype = {
     },
 }
 
-gameInstance = new Game("0020020000000000");
+gameInstance = new Game(4,4);
 assert.deepEqual( [23,34,443,5], gameInstance.removeEmpty([23,0,34,443,5,0]))
-assert.deepEqual([ [0,0,2,0],[0,2,0,0],[0,0,0,0],[0,0,0,0] ], game.getRows())
+gameInstance.show();
