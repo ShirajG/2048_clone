@@ -36,6 +36,8 @@ function Game (width, height){
     this.board = this.newBoard();
     this.rows = this.getRows();
     this.columns = this.getCols();
+    this.finished = false
+    this.start()
 }
 Game.prototype = {
     newBoard: function(){
@@ -77,6 +79,9 @@ Game.prototype = {
         }
         return rows;       
     },
+    setRows: function(){
+        // Mutates the values in the rows.
+    },
     getCols: function(){
         var cols = [];
         for(var i = 0; i < this.height;i++){
@@ -91,38 +96,65 @@ Game.prototype = {
         }
         return cols;
     },
+    setCols: function(){
+        //Mutates the values in the columns
+    },
     slide: function(direction){
         switch(direction) {
-            case 'k':
+            case 'u':
                 this.moveCells(0,-1);
                 break;
-            case 'j':
+            case 'd':
                 this.moveCells(0,1);
                 break;
-            case 'h':
+            case 'l':
                 this.moveCells(-1,0);
                 break;
-            case 'l':
+            case 'r':
                 this.moveCells(1,0);
                 break; 
+        }
+        this.checkWon();//Check if 256 is on the board, set finished to true if so.
+        this.checkLocked();//Check if there are any free spaces, set finished to true if so.
+    },
+    checkWon: function(){
+        for(var i = 0; i < this.board.length; i++){
+            if(this.board[i] === 256){
+                this.finished === true;
+                return true;
+            }
+        }
+        return false;
+    },
+    checkLocked: function(){
+        emptyTiles = this.board.filter(function(el){
+            return el === 0;
+        })
+        if (emptyTiles.length === 0){
+            this.finished = true;
         }
     },
     moveCells: function(x,y){
         // Remove all zeroes from the row/col
-        // Merge any 2 digits which are nieghbors and duplicate
+        // Merge any 2 digits which are neighbors and duplicate
         // Pad row/col with new 'tiles' until length is 4
         // Write the new row/col back to model
         console.log("Called the moveCells function");
     },
-    removeEmpty: function(arr){
+    removeZeroes: function(arr){
         return arr.filter(function(el){ return el !== 0})
     },
+    start: function(){
+        //runs the game until a 256 tile appears, or you have no free spaces.
+        // while(!this.finished){
+            console.log("started the game")
+        // }
+    }
 }
-
 
 assert=new Assert;
 gameInstance = new Game(10,10);
-assert.deepEqual( [23,34,443,5], gameInstance.removeEmpty([23,0,34,443,5,0]))
-gameInstance.show();
-console.log(gameInstance.getRows())
-console.log(gameInstance.getCols())
+// assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
+// gameInstance.show();
+// console.log(gameInstance.getRows())
+// console.log(gameInstance.getCols())
