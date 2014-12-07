@@ -22,11 +22,17 @@ function Controller(model){
         }
     }.bind(this));
 
-    Object.observe(this.model, this.updateView);
+    Object.observe(this.model, this.updateView.bind(this));
 }
-
 Controller.prototype = {
     updateView: function(){
         console.log("Updating the view automatically...")
+        document.querySelector("#board").innerHTML = "";
+        for(var i = 0; i < this.model.board.length; i++){
+            cell = document.createElement('DIV');
+            cell.classList.add('cell');
+            cell.innerHTML = this.model.board[i];
+            document.querySelector("#board").appendChild(cell);
+        }
     }
 }

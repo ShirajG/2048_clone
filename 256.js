@@ -21,7 +21,7 @@ function Assert(){};
 Assert.prototype = {
     //Checks if simple values are equal
     equal: function(expected, actual){
-        if(!(expected == actual)){
+        if(expected !== actual){
           throw "ERROR:" + expected + " did not equal: " + actual;
         }
     },
