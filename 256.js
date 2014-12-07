@@ -224,16 +224,34 @@ Game.prototype = {
     checkLocked: function(){
         //This should be refactored to check if there are 
         //any possible merges left, not if the board is full.
-        // There can still be moves even when the board is filled.
-        
-        emptyTiles = this.board.filter(function(el){
-            return el === 0;
-        })
-        if (emptyTiles.length === 0){
-            this.finished = true;
-            return true;
+        // There can still be moves even when the board is filled.        
+        // emptyTiles = this.board.filter(function(el){
+        //     return el === 0;
+        // })
+        // if (emptyTiles.length === 0){
+        //     this.finished = true;
+        //     return true;
+        // }
+        // return false;
+        if(this.board.indexOf(0) > -1){
+            return false;
         }
-        return false;
+
+        var cols = this.getCols();
+        var rows = this.getRows();
+
+        for (var i = 0; i < cols.length; i++) {
+            var j = 0;
+            while (j<rows[i].length - 1){
+                if((cols[i][j] === cols[i][j+1]) || (rows[i][j] === rows[i][j+1])){
+                    return false
+                }
+                j++;
+            }
+        };
+
+        this.finished = true;
+        return true;
     },
     removeZeroes: function(arr){
         return arr.filter(function(el){ return el !== 0})
