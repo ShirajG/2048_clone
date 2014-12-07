@@ -19,14 +19,12 @@ String.prototype.shirajPad = function(minLength) {
 };
 function Assert(){};
 Assert.prototype = {
-    //Checks if simple values are equal
     equal: function(expected, actual){
         if(expected !== actual){
           throw "ERROR:" + expected + " did not equal: " + actual;
         }
     },
     deepEqual: function(obj1, obj2){
-    //Checks if objects are the same by comparing all their keys and vals
         for(var x in obj1){
             if(obj1[x]!==obj2[x]){
                 throw "ERROR: " + obj1 + " is not equal to " + obj2;
@@ -57,17 +55,6 @@ Game.prototype = {
         return str.split("").map(function(el){
             return parseInt(el);
         });
-    },
-    show: function(){
-        str = ""
-        for(var i = 0; i < this.board.length;){
-            str += this.board[i].toString().shirajPad(4);
-            i++;
-            if ( i % this.width === 0){
-                str += "\n";
-            }
-        }
-        console.log(str)
     },
     getRows: function(){
         rows = [];
@@ -128,12 +115,6 @@ Game.prototype = {
         }
         if (!this.checkLocked()) {
             this.addTile();
-            this.show();
-        }
-        else{
-            this.show();
-            console.log("NO MORE MOVES!!!")
-            return
         }
     },
     moveCols: function(offset){
@@ -222,17 +203,6 @@ Game.prototype = {
         return false;
     },
     checkLocked: function(){
-        //This should be refactored to check if there are 
-        //any possible merges left, not if the board is full.
-        // There can still be moves even when the board is filled.        
-        // emptyTiles = this.board.filter(function(el){
-        //     return el === 0;
-        // })
-        // if (emptyTiles.length === 0){
-        //     this.finished = true;
-        //     return true;
-        // }
-        // return false;
         if(this.board.indexOf(0) > -1){
             return false;
         }
@@ -258,60 +228,8 @@ Game.prototype = {
     },
     start: function(){
         while(!this.finished){
-            this.show();
             var choice = prompt("choose: up down left right")
             this.slide(choice);
         }
     }
 }
-/*
-assert = new Assert;
-gameInstance = new Game(4,4);
-assert.deepEqual( [23,34,443,5], gameInstance.removeZeroes([23,0,34,443,5,0]))
-
-gameInstance.setRows([[2,3,4,5],[3,0,0,2],[3,6,4,7],[5,7,8,3]])
-assert.deepEqual([2,3,4,5,3,0,0,2,3,6,4,7,5,7,8,3], gameInstance.board)
-
-gameInstance.setCols([[2,3,4,5],[3,0,0,2],[3,6,4,7],[5,7,8,3]])
-assert.deepEqual([2,3,3,5,3,0,6,7,4,0,4,8,5,2,7,3], gameInstance.board)
-
-gameInstance.setRows([[2,2,2,2],[2,2,2,2],[2,2,2,2],[2,2,2,2]])
-assert.equal(true,gameInstance.checkLocked())
-
-gameInstance.setRows([[2,0,2,2],[2,2,2,2],[2,2,2,2],[2,2,2,2]])
-assert.equal(false,gameInstance.checkLocked())
-
-gameInstance.setCols([[2,0,0,2],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
-gameInstance.moveCols(1);
-assert.deepEqual(
-    [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    gameInstance.getCols().shirajFlatten()
-)
-
-gameInstance.setCols([[2,0,0,0],[0,0,0,2],[0,2,0,0],[0,0,0,0]])
-gameInstance.moveCols(1);
-assert.deepEqual(
-    [2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0],
-    gameInstance.getCols().shirajFlatten()
-)
-
-
-
-gameInstance.setRows([[2,0,0,2],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
-gameInstance.moveRows(-1);
-assert.deepEqual(
-    [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    gameInstance.getRows().shirajFlatten()
-)
-
-
-gameInstance.setRows([[2,0,0,0],[0,2,0,0],[2,0,2,0],[0,2,0,0]])
-gameInstance.moveRows(-1);
-assert.deepEqual(
-    [2,0,0,0,2,0,0,0,4,0,0,0,2,0,0,0],
-    gameInstance.getRows().shirajFlatten()
-)
-*/
-
-
-
