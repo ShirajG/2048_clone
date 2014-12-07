@@ -126,13 +126,6 @@ Game.prototype = {
                 this.moveRows(1);
                 break; 
         }
-        //Check if 256 is on the board, set finished to true if so.
-        if(this.checkWon()){
-            this.show();
-            console.log("YOU WON!!!")
-            return
-        }
-        //Check if there are any free spaces, set finished to true if so.
         if (!this.checkLocked()) {
             this.addTile();
             this.show();
@@ -242,7 +235,6 @@ Game.prototype = {
         return arr.filter(function(el){ return el !== 0})
     },
     start: function(){
-        //runs the game until a 256 tile appears, or you have no free spaces.
         while(!this.finished){
             this.show();
             var choice = prompt("choose: up down left right")

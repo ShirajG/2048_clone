@@ -4,11 +4,25 @@
     <title>256: The Game</title>
     <script type="text/javascript" src="controller.js"></script>
     <script type="text/javascript" src="256.js"></script>
+    <script type="text/javascript" src="view.js"></script>
     <link rel="stylesheet" type="text/css" href="256.css">
 </head>
 <body>
     <div id="board">
     </div>
     <script type="text/javascript" src="main.js"></script>
+    <div id='dark-overlay' ></div>
+    <div id="loss-modal" class="modal">
+      <form class="center">
+        <p class="center">no moves left</p>
+        <input type='submit' value="restart" class="button center">
+      </form>
+    </div>
+    <div id='win-modal' class="modal">
+      <form>
+        <p>Congrats! You win!</p>
+        <input type="submit" value="play again!"> 
+      </form>
+    </div>
 </body>
 </html>
