@@ -222,6 +222,10 @@ Game.prototype = {
         return false;
     },
     checkLocked: function(){
+        //This should be refactored to check if there are 
+        //any possible merges left, not if the board is full.
+        // There can still be moves even when the board is filled.
+        
         emptyTiles = this.board.filter(function(el){
             return el === 0;
         })

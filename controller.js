@@ -29,11 +29,12 @@ Controller.prototype = {
     updateView: function(){
         document.querySelector("#board").innerHTML = "";
         for(var i = 0; i < this.model.board.length; i++){
+            var currentCell = this.model.board[i];
             cell = document.createElement('DIV');
             cell.classList.add('cell');
 
-            if(this.model.board[i] !== 0){
-                cell.innerHTML = this.model.board[i];
+            if(currentCell !== 0){
+                cell.innerHTML = "<span class='_"+currentCell+"'>"+currentCell+"</span>";
             }
             else{
                 cell.innerHTML = " "
