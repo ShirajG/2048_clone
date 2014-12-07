@@ -31,7 +31,13 @@ Controller.prototype = {
         for(var i = 0; i < this.model.board.length; i++){
             cell = document.createElement('DIV');
             cell.classList.add('cell');
-            cell.innerHTML = this.model.board[i];
+
+            if(this.model.board[i] !== 0){
+                cell.innerHTML = this.model.board[i];
+            }
+            else{
+                cell.innerHTML = " "
+            }
             document.querySelector("#board").appendChild(cell);
         }
         if(this.checkWin()){
