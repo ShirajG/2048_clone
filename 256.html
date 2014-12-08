@@ -2,17 +2,16 @@
 <html>
 <head>
     <title>256: The Game</title>
-    <script type="text/javascript" src="controller.js"></script>
-    <script type="text/javascript" src="256.js"></script>
-    <script type="text/javascript" src="view.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Josefin+Slab:600' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="256.css">
+    <script type="text/javascript" src="/js/controller.js"></script>
+    <script type="text/javascript" src="/js/256.js"></script>
+    <script type="text/javascript" src="/js/view.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/css/256.css">
 </head>
 <body>
     <h2 class="center">256</h2>
     <div id="board">
     </div>
-    <script type="text/javascript" src="main.js"></script>
     <div id='dark-overlay' ></div>
     <div id="loss-modal" class="modal">
       <form class="center">
@@ -23,8 +22,9 @@
     <div id='win-modal' class="modal">
       <form class="center">
         <p class="center">You win!</p>
-        <input type="submit" value="play again!" class="button center"> 
+        <input type='submit' value="play again!" class="button center"> 
       </form>
     </div>
+    <script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>
