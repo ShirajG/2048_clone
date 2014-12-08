@@ -17,21 +17,6 @@ String.prototype.shirajPad = function(minLength) {
     }
     return that;
 };
-function Assert(){};
-Assert.prototype = {
-    equal: function(expected, actual){
-        if(expected !== actual){
-          throw "ERROR:" + expected + " did not equal: " + actual;
-        }
-    },
-    deepEqual: function(obj1, obj2){
-        for(var x in obj1){
-            if(obj1[x]!==obj2[x]){
-                throw "ERROR: " + obj1 + " is not equal to " + obj2;
-            }
-        }
-    }
-}
 function Game (width){
     this.width = width;
     this.height = width;
@@ -99,6 +84,7 @@ Game.prototype = {
         this.board = ret;
     },
     slide: function(direction){
+        var oldBoard = this.board;
         switch(direction) {
             case 'down':
                 this.moveCols(-1);
@@ -113,7 +99,7 @@ Game.prototype = {
                 this.moveRows(1);
                 break; 
         }
-        if (!this.checkLocked()) {
+        if ((this.board.indexOf(0) > -1) && (oldBoard.toString() != this.board.toString() )) {
             this.addTile();
         }
     },
@@ -175,8 +161,8 @@ Game.prototype = {
             }
             for (var j = 0; j < nestedArr[i].length - 1; j++) {
                 if (nestedArr[i][j] === nestedArr[i][j+1]){
-                    nestedArr[i][j+1] *= 2;
-                    nestedArr[i].splice(j,1);
+                    nestedArr[i][j] *= 2;
+                    nestedArr[i].splice(j+1,1);
                 }
             };
         };
