@@ -14,7 +14,7 @@ View.prototype = {
     },
     reset: function(){
         this.overlay.style.display='none';
-        this.winModal.style.domElement='none';
-        this.lossModal.style.domElement='none';
+        this.winModal.style.display='none';
+        this.lossModal.style.display='none';
     }
 };
