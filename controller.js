@@ -1,6 +1,7 @@
 function Controller(model,view){
     this.model = model;
     this.view = view;
+    this.forms = document.querySelectorAll('form');
 
     window.addEventListener("keydown",function(keypress){
         switch(keypress.keyCode) {
@@ -22,6 +23,15 @@ function Controller(model,view){
                 break;  
         }
     }.bind(this));
+
+    for (var i = 0; i < this.forms.length; i++){
+        this.forms[i].addEventListener('submit',function(event){
+            event.preventDefault();
+            this.view.reset();
+            this.model.board = this.model.newBoard();
+            this.model.finished = false;
+        }.bind(this))   
+    }
 
     Object.observe(this.model, this.updateView.bind(this));
 }
