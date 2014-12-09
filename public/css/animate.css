@@ -1,11 +1,3 @@
-rset "UTF-8";
-/*!
- * Animate.css - http://daneden.me/animate
- * Licensed under the MIT license - http://opensource.org/licenses/MIT
- *
- * Copyright (c) 2014 Daniel Eden
- * */
-
 .animated {
   -webkit-animation-duration: 1s;
           animation-duration: 1s;
@@ -556,8 +548,8 @@ rset "UTF-8";
 .bounceIn {
   -webkit-animation-name: bounceIn;
           animation-name: bounceIn;
-    -webkit-animation-duration: .75s;
-          animation-duration: .75s;
+    -webkit-animation-duration: .25s;
+          animation-duration: .25s;
   }
 
   @-webkit-keyframes bounceInDown {
@@ -893,8 +885,8 @@ rset "UTF-8";
 .bounceOut {
   -webkit-animation-name: bounceOut;
           animation-name: bounceOut;
-    -webkit-animation-duration: .75s;
-          animation-duration: .75s;
+    -webkit-animation-duration: .05s;
+          animation-duration: .05s;
   }
 
   @-webkit-keyframes bounceOutDown {
@@ -938,6 +930,8 @@ rset "UTF-8";
 .bounceOutDown {
   -webkit-animation-name: bounceOutDown;
           animation-name: bounceOutDown;
+        -webkit-animation-duration: .5s;
+                animation-duration: .5s;
   }
 
   @-webkit-keyframes bounceOutLeft {
@@ -971,6 +965,8 @@ rset "UTF-8";
 .bounceOutLeft {
   -webkit-animation-name: bounceOutLeft;
           animation-name: bounceOutLeft;
+          -webkit-animation-duration: .5s;
+                  animation-duration: .5s;
   }
 
   @-webkit-keyframes bounceOutRight {
@@ -1004,6 +1000,8 @@ rset "UTF-8";
 .bounceOutRight {
   -webkit-animation-name: bounceOutRight;
           animation-name: bounceOutRight;
+          -webkit-animation-duration: .5s;
+                  animation-duration: .5s;
   }
 
   @-webkit-keyframes bounceOutUp {
@@ -1047,6 +1045,8 @@ rset "UTF-8";
 .bounceOutUp {
   -webkit-animation-name: bounceOutUp;
           animation-name: bounceOutUp;
+          -webkit-animation-duration: .5s;
+                  animation-duration: .5s;
   }
 
   @-webkit-keyframes fadeIn {
